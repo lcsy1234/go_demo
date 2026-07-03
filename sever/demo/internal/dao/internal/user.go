@@ -24,6 +24,7 @@ type UserColumns struct {
 	Id        string // ç”¨æˆ·ID
 	Name      string // å§“å
 	Age       string // å¹´é¾„
+	Height    string // èº«é«˜(cm)
 	CreatedAt string // åˆ›å»ºæ—¶é—´
 	UpdatedAt string // æ›´æ–°æ—¶é—´
 }
@@ -33,6 +34,7 @@ var userColumns = UserColumns{
 	Id:        "id",
 	Name:      "name",
 	Age:       "age",
+	Height:    "height",
 	CreatedAt: "created_at",
 	UpdatedAt: "updated_at",
 }

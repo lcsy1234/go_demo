@@ -15,6 +15,7 @@ type User struct {
 	Id        any         // ç”¨æˆ·ID
 	Name      any         // å§“å
 	Age       any         // å¹´é¾„
+	Height    any         // èº«é«˜(cm)
 	CreatedAt *gtime.Time // åˆ›å»ºæ—¶é—´
 	UpdatedAt *gtime.Time // æ›´æ–°æ—¶é—´
 }

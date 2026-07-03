@@ -9,6 +9,7 @@ import (
 
 	"demo/internal/controller/hello"
 	"demo/internal/controller/test1"
+	"demo/internal/controller/user"
 )
 
 var (
@@ -23,6 +24,7 @@ var (
 				group.Bind(
 					hello.NewV1(),
 					test1.NewV1(),
+					user.NewV1(),
 				)
 			})
 			s.Run()

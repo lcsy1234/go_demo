@@ -1,14 +1,14 @@
-package test1
+package user
 
 import (
 	"context"
 
-	"demo/api/test1/v1"
+	"demo/api/user/v1"
 	"demo/internal/service"
 )
 
 func (c *ControllerV1) DeleteUser(ctx context.Context, req *v1.DeleteUserReq) (res *v1.DeleteUserRes, err error) {
-	err = service.Test1().DeleteUser(ctx, req.Id)
+	err = service.User().DeleteUser(ctx, req.Id)
 	if err != nil {
 		return nil, err
 	}

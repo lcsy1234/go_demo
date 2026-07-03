@@ -1,16 +1,17 @@
-package test1
+package user
 
 import (
 	"context"
 
-	"demo/api/test1/v1"
+	"demo/api/user/v1"
 	"demo/internal/service"
 )
 
 func (c *ControllerV1) CreateUser(ctx context.Context, req *v1.CreateUserReq) (res *v1.CreateUserRes, err error) {
-	out, err := service.Test1().CreateUser(ctx, &service.CreateUserInput{
-		Name: req.Name,
-		Age:  req.Age,
+	out, err := service.User().CreateUser(ctx, service.CreateUserInput{
+		Name:   req.Name,
+		Age:    req.Age,
+		Height: req.Height,
 	})
 	if err != nil {
 		return nil, err

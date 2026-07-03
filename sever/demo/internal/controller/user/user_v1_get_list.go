@@ -1,14 +1,14 @@
-package test1
+package user
 
 import (
 	"context"
 
-	"demo/api/test1/v1"
+	"demo/api/user/v1"
 	"demo/internal/service"
 )
 
 func (c *ControllerV1) GetList(ctx context.Context, req *v1.GetListReq) (res *v1.GetListRes, err error) {
-	out, err := service.Test1().GetUserList(ctx, &service.GetUserListInput{
+	out, err := service.User().GetList(ctx, service.GetListInput{
 		Page: req.Page,
 		Size: req.Size,
 	})
