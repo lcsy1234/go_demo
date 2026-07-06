@@ -2,14 +2,13 @@ package user
 
 import (
 	"context"
-
-	"github.com/gogf/gf/v2/errors/gcode"
-	"github.com/gogf/gf/v2/errors/gerror"
-
 	"demo/internal/dao"
 	"demo/internal/model/do"
 	"demo/internal/model/entity"
 	"demo/internal/service"
+
+	"github.com/gogf/gf/v2/errors/gcode"
+	"github.com/gogf/gf/v2/errors/gerror"
 )
 
 type sUser struct{}
@@ -103,4 +102,15 @@ func (s *sUser) GetList(ctx context.Context, in service.GetListInput) (out servi
 		List:  list,
 		Total: total,
 	}, nil
+}
+
+func (s *sUser) GetAllList(ctx context.Context) (out service.GetAllListOutput, err error) {
+	var list []*entity.User
+	err = dao.User.Ctx(ctx).
+		OrderDesc(dao.User.Columns().Id).
+		Scan(&list)
+	if err != nil {
+		return out, err
+	}
+	return service.GetAllListOutput{List: list}, nil
 }

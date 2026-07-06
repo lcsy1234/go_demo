@@ -25,4 +25,7 @@ type (
 		List  []*entity.User
 		Total int
 	}
+	GetAllListOutput struct {
+		List []*entity.User
+	}
 )

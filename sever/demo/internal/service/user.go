@@ -17,6 +17,7 @@ type (
 		UpdateUser(ctx context.Context, in UpdateUserInput) (err error)
 		DeleteUser(ctx context.Context, id uint) (err error)
 		GetList(ctx context.Context, in GetListInput) (out GetListOutput, err error)
+		GetAllList(ctx context.Context) (out GetAllListOutput, err error)
 	}
 )
 

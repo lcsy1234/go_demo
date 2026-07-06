@@ -53,3 +53,11 @@ type GetListRes struct {
 	List  []*entity.User `json:"list"  dc:"用户列表"`
 	Total int            `json:"total" dc:"总数"`
 }
+
+type GetAllListReq struct {
+	g.Meta `path:"/user/all" method:"get" tags:"User" summary:"用户全量列表（不分页）"`
+}
+
+type GetAllListRes struct {
+	List []*entity.User `json:"list" dc:"用户列表"`
+}
