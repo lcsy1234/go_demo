@@ -3,6 +3,7 @@ package user
 import (
 	"context"
 	"demo/internal/dao"
+	"demo/internal/model"
 	"demo/internal/model/do"
 	"demo/internal/model/entity"
 	"demo/internal/service"
@@ -113,4 +114,32 @@ func (s *sUser) GetAllList(ctx context.Context) (out service.GetAllListOutput, e
 		return out, err
 	}
 	return service.GetAllListOutput{List: list}, nil
+}
+
+func (s *sUser) GetTaskDetail(ctx context.Context, in model.GetTaskDetailInput) (out model.GetTaskDetailOutput, err error) {
+	var user *model.User
+	err = dao.User.Ctx(ctx).Where(dao.User.Columns().Id, in.UserId).Scan(&user)
+	if err != nil {
+		return out, err
+	}
+	if user == nil {
+		return out, gerror.NewCode(gcode.CodeNotFound, "用户不存在")
+	}
+
+	var taskList []*model.TaskList
+	err = dao.Task.Ctx(ctx).
+		Where(dao.Task.Columns().UserId, in.UserId).
+		OrderDesc(dao.Task.Columns().Id).
+		Scan(&taskList)
+	if err != nil {
+		return out, err
+	}
+	if taskList == nil {
+		taskList = make([]*model.TaskList, 0)
+	}
+
+	return model.GetTaskDetailOutput{
+		User:     user,
+		TaskList: taskList,
+	}, nil
 }

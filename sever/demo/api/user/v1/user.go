@@ -1,9 +1,10 @@
 package v1
 
 import (
-	"github.com/gogf/gf/v2/frame/g"
-
+	"demo/internal/model"
 	"demo/internal/model/entity"
+
+	"github.com/gogf/gf/v2/frame/g"
 )
 
 type CreateUserReq struct {
@@ -60,4 +61,16 @@ type GetAllListReq struct {
 
 type GetAllListRes struct {
 	List []*entity.User `json:"list" dc:"用户列表"`
+}
+type GetTaskDetailReq struct {
+	g.Meta `path:"/task/detail" method:"get" tags:"Task" summary:"获取用户及其任务列表"`
+	model.GetTaskDetailInput
+}
+
+//	type GetTaskDetailRes struct {
+//		*model.User
+//		TaskList []*model.TaskList `json:"taskList" dc:"任务列表"`
+//	}
+type GetTaskDetailRes struct {
+	*model.GetTaskDetailOutput
 }

@@ -7,6 +7,7 @@ package service
 
 import (
 	"context"
+	"demo/internal/model"
 	"demo/internal/model/entity"
 )
 
@@ -18,6 +19,7 @@ type (
 		DeleteUser(ctx context.Context, id uint) (err error)
 		GetList(ctx context.Context, in GetListInput) (out GetListOutput, err error)
 		GetAllList(ctx context.Context) (out GetAllListOutput, err error)
+		GetTaskDetail(ctx context.Context, in model.GetTaskDetailInput) (out model.GetTaskDetailOutput, err error)
 	}
 )
 
