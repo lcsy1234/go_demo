@@ -6,6 +6,7 @@ gfcli:
     dao:
       - link: "mysql:root:@tcp(127.0.0.1:3306)/go_demo"
         descriptionTag: true
+        tables: "user,article"
 
   docker:
     build: "-a amd64 -s linux -p temp -ew"

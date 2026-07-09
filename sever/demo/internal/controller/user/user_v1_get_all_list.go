@@ -2,9 +2,9 @@ package user
 
 import (
 	"context"
-
-	"demo/api/user/v1"
 	"demo/internal/service"
+
+	v1 "demo/api/user/v1"
 )
 
 func (c *ControllerV1) GetAllList(ctx context.Context, req *v1.GetAllListReq) (res *v1.GetAllListRes, err error) {

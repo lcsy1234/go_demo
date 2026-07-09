@@ -20,6 +20,32 @@ ctrl: cli.install
 dao: cli.install
 	@gf gen dao
 
+# Run database migrations (goose).
+GOOSE_DIR     = ./manifest/migration
+GOOSE_DB      = "root:@tcp(127.0.0.1:3306)/go_demo?parseTime=true&multiStatements=true"
+
+.PHONY: migrate
+migrate: goose.install
+	@goose -dir $(GOOSE_DIR) mysql $(GOOSE_DB) up
+
+.PHONY: migrate-down
+migrate-down: goose.install
+	@goose -dir $(GOOSE_DIR) mysql $(GOOSE_DB) down
+
+.PHONY: migrate-status
+migrate-status: goose.install
+	@goose -dir $(GOOSE_DIR) mysql $(GOOSE_DB) status
+
+.PHONY: migrate-create
+migrate-create: goose.install
+	@test -n "$(NAME)" || (echo "用法: make migrate-create NAME=add_xxx_table" && exit 1)
+	@goose -dir $(GOOSE_DIR) create $(NAME) sql
+
+.PHONY: goose.install
+goose.install:
+	@set -e; \
+	goose -version > /dev/null 2>&1 || (echo "安装 goose..." && go install github.com/pressly/goose/v3/cmd/goose@latest)
+
 # Parse current project go files and generate enums go file.
 .PHONY: enums
 enums: cli.install
