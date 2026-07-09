@@ -8,6 +8,7 @@ import (
 	"github.com/gogf/gf/v2/os/gcmd"
 
 	"demo/internal/controller/hello"
+	"demo/internal/controller/task"
 	"demo/internal/controller/test1"
 	"demo/internal/controller/user"
 )
@@ -25,6 +26,7 @@ var (
 					hello.NewV1(),
 					test1.NewV1(),
 					user.NewV1(),
+					task.NewV1(),
 				)
 			})
 			s.Run()
