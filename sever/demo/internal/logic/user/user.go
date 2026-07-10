@@ -116,30 +116,26 @@ func (s *sUser) GetAllList(ctx context.Context) (out service.GetAllListOutput, e
 	return service.GetAllListOutput{List: list}, nil
 }
 
-func (s *sUser) GetTaskDetail(ctx context.Context, in model.GetTaskDetailInput) (out model.GetTaskDetailOutput, err error) {
-	var user *model.User
-	err = dao.User.Ctx(ctx).Where(dao.User.Columns().Id, in.UserId).Scan(&user)
+func (s *sUser) GetTaskDetail(ctx context.Context, in model.GetTaskDetailInput) (out *model.GetTaskDetailOutput, err error) {
+	out = new(model.GetTaskDetailOutput)
+
+	err = dao.User.Ctx(ctx).Where(dao.User.Columns().Id, in.UserId).Scan(&out.User)
 	if err != nil {
-		return out, err
+		return
 	}
-	if user == nil {
-		return out, gerror.NewCode(gcode.CodeNotFound, "用户不存在")
+	if out.User == nil {
+		return nil, gerror.NewCode(gcode.CodeNotFound, "用户不存在")
 	}
 
-	var taskList []*model.TaskList
 	err = dao.Task.Ctx(ctx).
 		Where(dao.Task.Columns().UserId, in.UserId).
 		OrderDesc(dao.Task.Columns().Id).
-		Scan(&taskList)
+		Scan(&out.TaskList)
 	if err != nil {
-		return out, err
+		return
 	}
-	if taskList == nil {
-		taskList = make([]*model.TaskList, 0)
+	if out.TaskList == nil {
+		out.TaskList = make([]*model.TaskList, 0)
 	}
-
-	return model.GetTaskDetailOutput{
-		User:     user,
-		TaskList: taskList,
-	}, nil
+	return
 }
